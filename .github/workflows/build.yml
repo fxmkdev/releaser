@@ -21,13 +21,10 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      packages: write
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - name: Install PNPM
         uses: pnpm/action-setup@v4
       - name: Set up Node.js with PNPM cache
@@ -42,9 +39,35 @@ jobs:
         run: pnpm format:check
       - name: Build
         run: pnpm build
+
+  release:
+    name: Release
+    if: github.event_name == 'workflow_dispatch' && inputs.release
+    needs: build
+    runs-on: ubuntu-latest
+    concurrency:
+      group: release
+      cancel-in-progress: false
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install PNPM
+        uses: pnpm/action-setup@v4
+      - name: Set up Node.js with PNPM cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          registry-url: https://registry.npmjs.org
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
       - name: Get release version
         id: version
-        if: github.event_name == 'workflow_dispatch' && inputs.release
         run: |
           RESULT=$(pnpm --silent start get-version --release)
 
@@ -52,28 +75,39 @@ jobs:
 
           VERSION=$(echo "$RESULT" | jq -er '.version')
           PRERELEASE_TAG=$(echo "$RESULT" | jq -r '.prereleaseTag // "latest"')
+          IS_NEW_RELEASE=$(echo "$RESULT" | jq -er '.isNewRelease')
 
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "prerelease_tag=$PRERELEASE_TAG" >> "$GITHUB_OUTPUT"
+          echo "is_new_release=$IS_NEW_RELEASE" >> "$GITHUB_OUTPUT"
+      - name: Check release needed
+        if: steps.version.outputs.is_new_release != 'true'
+        run: |
+          echo "No unreleased changes found; refusing to create a duplicate release."
+          exit 1
       - name: Version package
-        if: github.event_name == 'workflow_dispatch' && inputs.release
         run: >-
           pnpm version ${{ steps.version.outputs.version }} --no-git-tag-version
       - name: Build release package
-        if: github.event_name == 'workflow_dispatch' && inputs.release
         run: pnpm build
+      - name: Preflight NPM publish
+        run: |
+          if [ -z "${NODE_AUTH_TOKEN:-}" ]; then
+            echo "secrets.NPM_TOKEN must be configured so NODE_AUTH_TOKEN can authenticate npm publishing."
+            exit 1
+          fi
+
+          npm whoami --registry=https://registry.npmjs.org/
+          pnpm publish --access=public --no-git-checks --tag "$NPM_TAG" --dry-run
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TAG: ${{ steps.version.outputs.prerelease_tag }}
       - name: Create GitHub release
-        if: github.event_name == 'workflow_dispatch' && inputs.release
         run: pnpm start publish --draft ${{ steps.version.outputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Add NPM token
-        if: github.event_name == 'workflow_dispatch' && inputs.release
-        run: echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> .npmrc
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish package
-        if: github.event_name == 'workflow_dispatch' && inputs.release
         run: pnpm publish --access=public --no-git-checks --tag "$NPM_TAG"
         env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TAG: ${{ steps.version.outputs.prerelease_tag }}
