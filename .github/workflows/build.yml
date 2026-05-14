@@ -93,7 +93,7 @@ jobs:
       - name: Preflight NPM publish
         run: |
           if [ -z "${NODE_AUTH_TOKEN:-}" ]; then
-            echo "NPM_TOKEN is required to publish to npm."
+            echo "secrets.NPM_TOKEN must be configured so NODE_AUTH_TOKEN can authenticate npm publishing."
             exit 1
           fi
 
