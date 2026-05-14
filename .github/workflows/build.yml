@@ -7,8 +7,8 @@ on:
       - main
   workflow_dispatch:
     inputs:
-      release:
-        description: Create a release
+      force_release:
+        description: Force a release even without a !release commit marker
         required: false
         default: false
         type: boolean
@@ -22,9 +22,15 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      prerelease_tag: ${{ steps.version.outputs.prerelease_tag }}
+      is_new_release: ${{ steps.version.outputs.is_new_release }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Install PNPM
         uses: pnpm/action-setup@v4
       - name: Set up Node.js with PNPM cache
@@ -35,6 +41,28 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Get release version
+        id: version
+        run: |
+          if [[ "$FORCE_RELEASE" == "true" ]]; then
+            RESULT=$(pnpm --silent start get-version --release)
+          else
+            RESULT=$(pnpm --silent start get-version)
+          fi
+
+          echo "$RESULT"
+
+          VERSION=$(echo "$RESULT" | jq -er '.version')
+          PRERELEASE_TAG=$(echo "$RESULT" | jq -r '.prereleaseTag // "latest"')
+          IS_NEW_RELEASE=$(echo "$RESULT" | jq -r '.isNewRelease')
+
+          {
+            echo "version=$VERSION"
+            echo "prerelease_tag=$PRERELEASE_TAG"
+            echo "is_new_release=$IS_NEW_RELEASE"
+          } >> "$GITHUB_OUTPUT"
+        env:
+          FORCE_RELEASE: ${{ inputs.force_release || false }}
       - name: Lint GitHub Actions workflows
         run: pnpm lint:actions
       - name: Check formatting
@@ -44,7 +72,9 @@ jobs:
 
   release:
     name: Release
-    if: github.event_name == 'workflow_dispatch' && inputs.release
+    if: >-
+      github.event_name != 'pull_request' && needs.build.outputs.is_new_release
+      == 'true'
     needs: build
     runs-on: ubuntu-latest
     concurrency:
@@ -69,37 +99,21 @@ jobs:
           registry-url: https://registry.npmjs.org
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Get release version
-        id: version
-        run: |
-          RESULT=$(pnpm --silent start get-version --release)
-
-          echo "$RESULT"
-
-          VERSION=$(echo "$RESULT" | jq -er '.version')
-          PRERELEASE_TAG=$(echo "$RESULT" | jq -r '.prereleaseTag // "latest"')
-          IS_NEW_RELEASE=$(echo "$RESULT" | jq -er '.isNewRelease')
-
-          {
-            echo "version=$VERSION"
-            echo "prerelease_tag=$PRERELEASE_TAG"
-            echo "is_new_release=$IS_NEW_RELEASE"
-          } >> "$GITHUB_OUTPUT"
       - name: Check release needed
-        if: steps.version.outputs.is_new_release != 'true'
+        if: needs.build.outputs.is_new_release != 'true'
         run: |
           echo "No unreleased changes found; refusing to create a duplicate release."
           exit 1
       - name: Version package
         run: >-
-          pnpm version ${{ steps.version.outputs.version }} --no-git-tag-version
+          pnpm version ${{ needs.build.outputs.version }} --no-git-tag-version
       - name: Build release package
         run: pnpm build
       - name: Create GitHub release
-        run: pnpm start publish --draft ${{ steps.version.outputs.version }}
+        run: pnpm start publish --draft ${{ needs.build.outputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish package
         run: npm publish --access=public --tag "$NPM_TAG"
         env:
-          NPM_TAG: ${{ steps.version.outputs.prerelease_tag }}
+          NPM_TAG: ${{ needs.build.outputs.prerelease_tag }}

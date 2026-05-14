@@ -21,7 +21,8 @@ pnpm releaser publish 0.5.1
 ## Commands
 
 `get-version` prints JSON describing the next version based on commits since the
-latest `v*` Git tag. Pass `--release` to force a stable release version.
+latest `v*` Git tag. Pass `--release` to force a stable release version. Commits
+with `!release` in the body also request a stable release.
 
 `get-release-notes` prints generated release notes for commits since the latest
 release tag.
@@ -37,7 +38,10 @@ creates a GitHub release. Pass `--draft` to create the release as a draft.
 - `GITHUB_REPOSITORY`: repository in `owner/name` form.
 
 The GitHub Actions release workflow publishes to npm with Trusted Publishing, so
-it does not require an `NPM_TOKEN` repository secret.
+it does not require an `NPM_TOKEN` repository secret. It creates a release on
+`main` when `get-version` detects a `!release` commit marker. For manual
+workflow runs, enable the `force_release` input to force a release even without
+that marker.
 
 `get-version` also reads `GITHUB_HEAD_REF` when available to derive prerelease
 tags for pull request builds.
