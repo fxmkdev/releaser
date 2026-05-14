@@ -110,7 +110,7 @@ jobs:
       - name: Build release package
         run: pnpm build
       - name: Create GitHub release
-        run: pnpm start publish --draft ${{ needs.build.outputs.version }}
+        run: pnpm start publish ${{ needs.build.outputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish package

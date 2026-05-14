@@ -28,7 +28,8 @@ with `!release` in the body also request a stable release.
 release tag.
 
 `publish <newVersion>` creates and pushes a `v<newVersion>` Git tag, then
-creates a GitHub release. Pass `--draft` to create the release as a draft.
+creates a published GitHub release. Pass `--draft` to create the release as a
+draft.
 
 ## Environment
 
