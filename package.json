@@ -3,6 +3,9 @@
   "version": "0.0.0-unknown",
   "type": "module",
   "packageManager": "pnpm@10.3.0+sha512.ee592eda8815a8a293c206bb0917c4bb0ff274c50def7cbc17be05ec641fc2d1b02490ce660061356bd0d126a4d7eb2ec8830e6959fb8a447571c631d5a2442d",
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "start": "tsx src/index.ts",
     "build": "pkgroll",
@@ -16,16 +19,16 @@
     "package.json"
   ],
   "devDependencies": {
-    "@types/node": "^22.16.5",
-    "@types/semver": "^7.7.0",
-    "pkgroll": "^2.15.0",
+    "@types/node": "^24.12.4",
+    "@types/semver": "^7.7.1",
+    "pkgroll": "^2.27.0",
     "prettier": "3.5.3",
-    "tsx": "^4.20.3"
+    "tsx": "^4.21.1"
   },
   "dependencies": {
     "@octokit/rest": "^21.1.1",
     "changelogen": "^0.6.2",
     "commander": "^13.1.0",
-    "semver": "^7.7.2"
+    "semver": "^7.8.0"
   }
 }

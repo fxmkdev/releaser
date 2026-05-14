@@ -41,6 +41,8 @@ tags for pull request builds.
 
 ## Development
 
+Use Node 24 or newer.
+
 ```sh
 pnpm install
 pnpm format:check
