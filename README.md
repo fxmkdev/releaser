@@ -36,8 +36,8 @@ creates a GitHub release. Pass `--draft` to create the release as a draft.
 - `GITHUB_TOKEN`: token with permission to create releases and push tags.
 - `GITHUB_REPOSITORY`: repository in `owner/name` form.
 
-The GitHub Actions release workflow also expects an `NPM_TOKEN` repository
-secret with permission to publish the package to npm.
+The GitHub Actions release workflow publishes to npm with Trusted Publishing, so
+it does not require an `NPM_TOKEN` repository secret.
 
 `get-version` also reads `GITHUB_HEAD_REF` when available to derive prerelease
 tags for pull request builds.
