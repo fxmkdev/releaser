@@ -9,6 +9,14 @@ describe("getReleaseVersionTag", () => {
     assert.equal(getReleaseVersionTag("v1.2.3"), "v1.2.3");
   });
 
+  it("preserves build metadata in the release tag", () => {
+    assert.equal(getReleaseVersionTag("1.2.3+build.7"), "v1.2.3+build.7");
+    assert.equal(
+      getReleaseVersionTag("v1.2.3-alpha.1+build.7"),
+      "v1.2.3-alpha.1+build.7",
+    );
+  });
+
   it("rejects invalid and injection-shaped version input", () => {
     assert.throws(
       () => getReleaseVersionTag("1.2.3; git push origin main"),

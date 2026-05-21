@@ -2,12 +2,15 @@ import { execFileSync } from "child_process";
 import semver from "semver";
 
 export function getReleaseVersionTag(newVersion: string) {
-  const normalizedVersion = semver.valid(newVersion);
-  if (!normalizedVersion) {
+  const parsedVersion = semver.parse(newVersion);
+  if (!parsedVersion) {
     throw new Error(`Invalid release version: ${newVersion}`);
   }
 
-  return `v${normalizedVersion}`;
+  const buildMetadata =
+    parsedVersion.build.length > 0 ? `+${parsedVersion.build.join(".")}` : "";
+
+  return `v${parsedVersion.version}${buildMetadata}`;
 }
 
 export function createAndPushGitTag(
