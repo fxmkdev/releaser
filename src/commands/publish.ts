@@ -1,4 +1,3 @@
-import { execSync } from "child_process";
 import { program } from "commander";
 import { Octokit } from "@octokit/rest";
 import {
@@ -6,18 +5,18 @@ import {
   getLastReleaseVersionTag,
   getReleaseNotes,
 } from "src/common";
+import { createAndPushGitTag, getReleaseVersionTag } from "src/publish";
 
 program
   .command("publish")
   .option("-d, --draft", "Create a draft release")
   .argument("<newVersion>")
   .action(async (newVersion, options) => {
+    const newVersionTag = getReleaseVersionTag(newVersion);
     const lastReleaseVersionTag = getLastReleaseVersionTag();
-    const newVersionTag = `v${newVersion}`;
 
     console.log(`Creating and pushing tag…`);
-    execSync(`git tag ${newVersionTag}`);
-    execSync(`git push origin ${newVersionTag}`);
+    createAndPushGitTag(newVersionTag);
 
     const config = await getConfig(lastReleaseVersionTag);
 
