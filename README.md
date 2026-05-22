@@ -55,6 +55,7 @@ Use Node 24 or newer.
 pnpm install
 pnpm lint:actions
 pnpm format:check
+pnpm typecheck
 pnpm build
 ```
 

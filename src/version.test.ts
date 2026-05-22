@@ -14,7 +14,7 @@ const config = {
     chore: { title: "Chore" },
   },
   scopeMap: {},
-} as ResolvedChangelogConfig;
+} as unknown as ResolvedChangelogConfig;
 
 describe("getVersionInfo", () => {
   it("returns the current release version when there are no unreleased commits", () => {

@@ -30,11 +30,13 @@ Guidance for coding agents and contributors working in this repository.
 ```bash
 pnpm install
 pnpm format:check
+pnpm typecheck
 pnpm build
 ```
 
 ## Quality Checklist
 
 - Run `pnpm format:check` before finishing changes that touch formatted files.
+- Run `pnpm typecheck` before finishing TypeScript changes.
 - Run `pnpm build` before finishing code changes.
 - Update `README.md` or other relevant docs when behavior or usage changes.
