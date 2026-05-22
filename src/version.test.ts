@@ -168,6 +168,13 @@ describe("sanitizePrereleaseBranchName", () => {
       "feature-releaseplan",
     );
   });
+
+  it("replaces every slash and underscore with a hyphen", () => {
+    assert.equal(
+      sanitizePrereleaseBranchName("feature/foo_bar/baz_qux@plan"),
+      "feature-foo-bar-baz-quxplan",
+    );
+  });
 });
 
 function commit(message: string, body = ""): RawGitCommit {

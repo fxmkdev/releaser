@@ -91,10 +91,7 @@ export function getNewVersion(
 }
 
 export function sanitizePrereleaseBranchName(branchName: string) {
-  return branchName
-    .replace("/", "-")
-    .replace("_", "-")
-    .replace(/[^a-zA-Z0-9.-]/g, "");
+  return branchName.replace(/[/_]/g, "-").replace(/[^a-zA-Z0-9.-]/g, "");
 }
 
 export function determineNewReleaseVersion(
