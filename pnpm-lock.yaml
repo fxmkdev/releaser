@@ -31,7 +31,7 @@ importers:
         version: 1.7.12
       pkgroll:
         specifier: ^2.27.1
-        version: 2.27.1(typescript@5.9.3)
+        version: 2.27.1(typescript@6.0.3)
       prettier:
         specifier: 3.8.3
         version: 3.8.3
@@ -39,8 +39,8 @@ importers:
         specifier: ^4.22.4
         version: 4.22.4
       typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
+        specifier: ^6.0.3
+        version: 6.0.3
 
 packages:
   "@esbuild/aix-ppc64@0.26.0":
@@ -1548,10 +1548,10 @@ packages:
     engines: { node: ">=18.0.0" }
     hasBin: true
 
-  typescript@5.9.3:
+  typescript@6.0.3:
     resolution:
       {
-        integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==,
+        integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==,
       }
     engines: { node: ">=14.17" }
     hasBin: true
@@ -2246,7 +2246,7 @@ snapshots:
       exsolve: 1.0.8
       pathe: 2.0.3
 
-  pkgroll@2.27.1(typescript@5.9.3):
+  pkgroll@2.27.1(typescript@6.0.3):
     dependencies:
       "@rollup/plugin-alias": 6.0.0(rollup@4.61.1)
       "@rollup/plugin-commonjs": 29.0.3(rollup@4.61.1)
@@ -2261,7 +2261,7 @@ snapshots:
       rollup-pluginutils: 2.8.2
       yaml: 2.9.0
     optionalDependencies:
-      typescript: 5.9.3
+      typescript: 6.0.3
     transitivePeerDependencies:
       - vite
 
@@ -2356,7 +2356,7 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  typescript@5.9.3: {}
+  typescript@6.0.3: {}
 
   ufo@1.6.4: {}
 
