@@ -28,18 +28,18 @@
     "package.json"
   ],
   "devDependencies": {
-    "@types/node": "^24.12.4",
+    "@types/node": "^24.13.1",
     "@types/semver": "^7.7.1",
     "github-actionlint": "1.7.12",
-    "pkgroll": "^2.27.0",
+    "pkgroll": "^2.27.1",
     "prettier": "3.8.3",
-    "tsx": "^4.22.3",
+    "tsx": "^4.22.4",
     "typescript": "^5.9.3"
   },
   "dependencies": {
     "@octokit/rest": "^22.0.1",
     "changelogen": "^0.6.2",
     "commander": "^15.0.0",
-    "semver": "^7.8.0"
+    "semver": "^7.8.2"
   }
 }
