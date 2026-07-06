@@ -1,3 +1,7 @@
+overrides:
+  esbuild: 0.28.1
+  tar: 7.5.16
+
 allowBuilds:
   esbuild: false
 minimumReleaseAgeExclude:
