@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  adm-zip: 0.6.0
+
 importers:
   .:
     dependencies:
@@ -942,12 +945,12 @@ packages:
         integrity: sha512-FmgJfu+MOcQ370SD0ev7EI8TlCAfKYU+B4m5T3yXc1CiRN94g/SZPtsCkk506aUDtlMnFZvasDwHHUcZUEaYuA==,
       }
 
-  adm-zip@0.5.17:
+  adm-zip@0.6.0:
     resolution:
       {
-        integrity: sha512-+Ut8d9LLqwEvHHJl1+PIHqoyDxFgVN847JTVM3Izi3xHDWPE4UtzzXysMZQs64DMcrJfBeS/uoEP4AD3HQHnQQ==,
+        integrity: sha512-XleryMhbuksdKtofnWZ9Sk+4CUTbms4Mb/EU32SZwToAyZ5RgVos/ki8n+yr0LWHOGKuakbXTuuYNHLQjhddgg==,
       }
-    engines: { node: ">=12.0" }
+    engines: { node: ">=14.0" }
 
   astring@1.9.0:
     resolution:
@@ -1970,7 +1973,7 @@ snapshots:
 
   "@types/semver@7.7.1": {}
 
-  adm-zip@0.5.17: {}
+  adm-zip@0.6.0: {}
 
   astring@1.9.0: {}
 
@@ -2151,7 +2154,7 @@ snapshots:
 
   github-actionlint@1.7.12:
     dependencies:
-      adm-zip: 0.5.17
+      adm-zip: 0.6.0
       tar: 7.5.15
 
   glob-parent@5.1.2:

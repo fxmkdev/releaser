@@ -2,3 +2,5 @@ allowBuilds:
   esbuild: false
 minimumReleaseAgeExclude:
   - "@types/node@24.13.1"
+overrides:
+  adm-zip: 0.6.0
