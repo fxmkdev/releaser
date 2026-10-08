@@ -5,8 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
+  adm-zip: 0.6.1
   esbuild: 0.28.1
-  tar: 7.5.16
+  tar: 7.5.21
 
 importers:
   .:
@@ -712,12 +713,12 @@ packages:
         integrity: sha512-FmgJfu+MOcQ370SD0ev7EI8TlCAfKYU+B4m5T3yXc1CiRN94g/SZPtsCkk506aUDtlMnFZvasDwHHUcZUEaYuA==,
       }
 
-  adm-zip@0.5.17:
+  adm-zip@0.6.1:
     resolution:
       {
-        integrity: sha512-+Ut8d9LLqwEvHHJl1+PIHqoyDxFgVN847JTVM3Izi3xHDWPE4UtzzXysMZQs64DMcrJfBeS/uoEP4AD3HQHnQQ==,
+        integrity: sha512-Xwrja8nx9e5o2N1my4DsKCeKpdrnACyr1wtbPxBDgGzKzKyE9kRtBFA8mWldI+RVlD7CBZNWY/wQ2+ydwOR6kQ==,
       }
-    engines: { node: ">=12.0" }
+    engines: { node: ">=14.0" }
 
   astring@1.9.0:
     resolution:
@@ -1288,10 +1289,10 @@ packages:
       }
     engines: { node: ">= 0.4" }
 
-  tar@7.5.16:
+  tar@7.5.21:
     resolution:
       {
-        integrity: sha512-56adEpPMouktRlBLXiaYFFzZ/3+JXa8P9n7WbR+ibIjtviN55mEaOkiysCnPnWm+7kkui1Dn8J9l+g6zV8731w==,
+        integrity: sha512-XdhtCvlMywwxpCW8YEq3lOXBJpUPTR2OHHcwLPO3HwsJqOHa2Ok/oJ7ruGzp+JrKoRPVCzJwAdEjqLW/vNRPHA==,
       }
     engines: { node: ">=18" }
 
@@ -1654,7 +1655,7 @@ snapshots:
 
   "@types/semver@7.7.1": {}
 
-  adm-zip@0.5.17: {}
+  adm-zip@0.6.1: {}
 
   astring@1.9.0: {}
 
@@ -1806,8 +1807,8 @@ snapshots:
 
   github-actionlint@1.7.12:
     dependencies:
-      adm-zip: 0.5.17
-      tar: 7.5.16
+      adm-zip: 0.6.1
+      tar: 7.5.21
 
   glob-parent@5.1.2:
     dependencies:
@@ -1993,7 +1994,7 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  tar@7.5.16:
+  tar@7.5.21:
     dependencies:
       "@isaacs/fs-minipass": 4.0.1
       chownr: 3.0.0
