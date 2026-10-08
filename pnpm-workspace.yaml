@@ -1,6 +1,7 @@
 overrides:
+  adm-zip: 0.6.1
   esbuild: 0.28.1
-  tar: 7.5.16
+  tar: 7.5.21
 
 allowBuilds:
   esbuild: false
