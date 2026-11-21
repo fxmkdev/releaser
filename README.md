@@ -49,13 +49,18 @@ tags for pull request builds.
 
 ## Development
 
-Use Node 24 or newer.
+Use Node 24 or newer and the pnpm 12 version pinned in `package.json`.
+
+The lockfile includes pnpm's version and platform binaries alongside the project
+dependencies. Build permissions and dependency overrides remain configured in
+`pnpm-workspace.yaml`, with esbuild's install scripts disabled.
 
 ```sh
-pnpm install
+pnpm install --frozen-lockfile
 pnpm lint:actions
 pnpm format:check
 pnpm typecheck
+pnpm test
 pnpm build
 ```
 
