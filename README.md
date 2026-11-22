@@ -2,6 +2,8 @@
 
 Release tooling for Felix Mokross packages.
 
+Requires Node 24 or newer. Consumer compatibility is tested on Node 24 and 26.
+
 ## Usage
 
 Install the package in a repository that uses Git tags for releases:
@@ -49,7 +51,8 @@ tags for pull request builds.
 
 ## Development
 
-Use Node 24 or newer and the pnpm 12 version pinned in `package.json`.
+Use Node 24 and the pnpm 12 version pinned in `package.json` for development and
+release builds. Keep `@types/node` on major 24 to match the minimum runtime.
 
 The lockfile includes pnpm's version and platform binaries alongside the project
 dependencies. Build permissions and dependency overrides remain configured in
@@ -62,6 +65,15 @@ pnpm format:check
 pnpm typecheck
 pnpm test
 pnpm build
+pnpm pack --out /tmp/releaser.tgz
+pnpm test:package /tmp/releaser.tgz
 ```
 
 The package is built with `pkgroll` and published as the `releaser` binary.
+
+CI runs workflow lint, formatting, typecheck, and builds on Node 24.
+Compatibility jobs run unit tests on Node 24 and 26 and install the same
+Node-24-built tarball into temporary consumer projects with production
+dependencies only. They check CLI help, version calculation, and release-note
+generation against local Git fixtures. Both compatibility jobs must pass before
+the Node 24 release job runs.

@@ -69,17 +69,56 @@ jobs:
         run: pnpm format:check
       - name: Typecheck
         run: pnpm typecheck
-      - name: Test
-        run: pnpm test
       - name: Build
         run: pnpm build
+      - name: Pack compatibility package
+        run: pnpm pack --out "$RUNNER_TEMP/releaser.tgz"
+      - name: Upload compatibility package
+        uses: actions/upload-artifact@v7
+        with:
+          name: compatibility-package
+          path: ${{ runner.temp }}/releaser.tgz
+          if-no-files-found: error
+
+  compatibility:
+    name: Compatibility (Node ${{ matrix.node }})
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [24, 26]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Install PNPM
+        uses: pnpm/action-setup@v6
+      - name: Set up Node.js with PNPM cache
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Test
+        run: pnpm test
+      - name: Download compatibility package
+        uses: actions/download-artifact@v8
+        with:
+          name: compatibility-package
+          path: ${{ runner.temp }}/compatibility-package
+      - name: Test packaged CLI
+        run: pnpm test:package "$RUNNER_TEMP/compatibility-package/releaser.tgz"
 
   release:
     name: Release
     if: >-
       github.event_name != 'pull_request' && needs.build.outputs.is_new_release
       == 'true'
-    needs: build
+    needs: [build, compatibility]
     runs-on: ubuntu-latest
     concurrency:
       group: release
