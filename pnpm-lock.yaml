@@ -231,11 +231,11 @@ importers:
         specifier: ^0.6.2
         version: 0.6.2
       commander:
-        specifier: ^15.0.0
-        version: 15.0.0
+        specifier: ^15.1.0
+        version: 15.1.0
       semver:
-        specifier: ^7.8.5
-        version: 7.8.5
+        specifier: ^7.8.6
+        version: 7.8.6
     devDependencies:
       "@types/node":
         specifier: ^24.19.1
@@ -247,11 +247,11 @@ importers:
         specifier: 1.7.12
         version: 1.7.12
       pkgroll:
-        specifier: ^2.28.1
-        version: 2.28.1(typescript@6.0.3)
+        specifier: ^2.29.1
+        version: 2.29.1(typescript@6.0.3)
       prettier:
-        specifier: 3.9.9
-        version: 3.9.9
+        specifier: 3.10.1
+        version: 3.10.1
       tsx:
         specifier: ^4.23.15
         version: 4.23.15
@@ -500,12 +500,6 @@ packages:
         integrity: sha512-wgm9Ehl2jpeqP3zw/7mo3kRHFp5MEDhqAdwy1fTGkHAwnkGOVsgpvQhL8B5n1qlb01jV3n/bI0ZfZp5lWA1k4w==,
       }
     engines: { node: ">=18.0.0" }
-
-  "@jridgewell/sourcemap-codec@1.5.5":
-    resolution:
-      {
-        integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==,
-      }
 
   "@jridgewell/sourcemap-codec@1.6.0":
     resolution:
@@ -1013,10 +1007,10 @@ packages:
         integrity: sha512-lmNyBzi6iYiqyrExTctfmjd8tInx+dHu9PBomTfH5RXS53c27JMFJgzNv5TyAnm3PgGf+MLy0+Ws41/HlVxdKQ==,
       }
 
-  commander@15.0.0:
+  commander@15.1.0:
     resolution:
       {
-        integrity: sha512-z67u4ZhzCL/Tydu1lJARtEZYWbWaN7oYLHbsuzocr6y4N6WZAagG3RQ4FW61V1/0+jImpj293XfrcYnd1qxtPg==,
+        integrity: sha512-cgnQ88TRrWcC7pVq46RzJVRMktu3W2RcbnoidnfBsl1bmDCBwJS/udcIZpKoCrbAYYaCqsz1yZCVIgbIaU3ddQ==,
       }
     engines: { node: ">=22.12.0" }
 
@@ -1399,10 +1393,10 @@ packages:
         integrity: sha512-y+ichcgc2LrADuhLNAx8DFjVfgz91pRxfZdI3UDhxHvcVEZsenLO+7XaU5vOp0u/7V/wZ+plyuQxtrDlZJ+yeg==,
       }
 
-  pkgroll@2.28.1:
+  pkgroll@2.29.1:
     resolution:
       {
-        integrity: sha512-VZsvQZ68y7Z7VxO4am4dK1rfsqaSXDQEOpcx/aPcI1IgHanH1BDMKpyrlW4qjC/CNFvLE52+Mzy2HkyTOFXyPw==,
+        integrity: sha512-2zQ1E1tPVxZtQz9wN+uTetJZKwj548xQGyAlWgVkhge31pJBt4R8poDrkWVvuYNkosrjpL8i6op5gBGWJyOEQg==,
       }
     engines: { node: ">=18" }
     hasBin: true
@@ -1415,10 +1409,10 @@ packages:
       typescript:
         optional: true
 
-  prettier@3.9.9:
+  prettier@3.10.1:
     resolution:
       {
-        integrity: sha512-Z/CJHIkdujO/OtN7nXUii0Rf3VT5SRuhjBA82Xvu2XhBUgX3nhP67T0LHceBdQLex7OOFGTox+Q5Yg8Jk2Qivg==,
+        integrity: sha512-70vp3ZUYoPlFbF9uiTdXHUUCGEIp7d4+6p+8DYbkm2jP7x/3i/paXVF6dopSI3zd/CEitrZN1rc4i85xWmmXlg==,
       }
     engines: { node: ">=14" }
     hasBin: true
@@ -1505,10 +1499,10 @@ packages:
         integrity: sha512-6FtHJEvt+pVMIB9IBY+IcCJ6Z5f1iQnytgyfKMhDKgmzYG+TeH/wx1y3l27rshSbLiSanrR9ffZDrEsmjlQF2g==,
       }
 
-  semver@7.8.5:
+  semver@7.8.6:
     resolution:
       {
-        integrity: sha512-Y7/KDsb8LjooZpwaqGyulO6DQlksgCncchHGk+sZIY4SBvUocMBEFH5Ur1fI4dV+Jvl0w6cjvucaIi40puRioA==,
+        integrity: sha512-9lpSSU4Mly3mrtruwLs1eLK6+gzbzqeBFwRNjIjE+9LuDpWdYctrQlQ3ej1Ilgi7gknpsTRnPoLP8DpCHqHIJw==,
       }
     engines: { node: ">=10" }
     hasBin: true
@@ -1685,8 +1679,6 @@ snapshots:
   "@isaacs/fs-minipass@4.0.1":
     dependencies:
       minipass: 7.1.3
-
-  "@jridgewell/sourcemap-codec@1.5.5": {}
 
   "@jridgewell/sourcemap-codec@1.6.0": {}
 
@@ -1946,7 +1938,7 @@ snapshots:
       pathe: 2.0.3
       pkg-types: 2.3.1
       scule: 1.3.0
-      semver: 7.8.5
+      semver: 7.8.6
       std-env: 3.10.0
     transitivePeerDependencies:
       - magicast
@@ -1959,7 +1951,7 @@ snapshots:
 
   cjs-module-lexer@2.3.0: {}
 
-  commander@15.0.0: {}
+  commander@15.1.0: {}
 
   commondir@1.0.1: {}
 
@@ -2101,7 +2093,7 @@ snapshots:
 
   magic-string@0.30.21:
     dependencies:
-      "@jridgewell/sourcemap-codec": 1.5.5
+      "@jridgewell/sourcemap-codec": 1.6.0
 
   magic-string@1.4.3:
     dependencies:
@@ -2155,7 +2147,7 @@ snapshots:
       exsolve: 1.0.8
       pathe: 2.0.3
 
-  pkgroll@2.28.1(typescript@6.0.3):
+  pkgroll@2.29.1(typescript@6.0.3):
     dependencies:
       "@rollup/plugin-alias": 6.0.0(rollup@4.64.2)
       "@rollup/plugin-commonjs": 29.0.3(rollup@4.64.2)
@@ -2175,7 +2167,7 @@ snapshots:
     transitivePeerDependencies:
       - vite
 
-  prettier@3.9.9: {}
+  prettier@3.10.1: {}
 
   queue-microtask@1.2.3: {}
 
@@ -2243,7 +2235,7 @@ snapshots:
 
   scule@1.3.0: {}
 
-  semver@7.8.5: {}
+  semver@7.8.6: {}
 
   signal-exit@4.1.0: {}
 

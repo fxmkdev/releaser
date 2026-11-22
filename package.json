@@ -31,15 +31,15 @@
     "@types/node": "^24.19.1",
     "@types/semver": "^7.8.0",
     "github-actionlint": "1.7.12",
-    "pkgroll": "^2.28.1",
-    "prettier": "3.9.9",
+    "pkgroll": "^2.29.1",
+    "prettier": "3.10.1",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3"
   },
   "dependencies": {
     "@octokit/rest": "^22.0.1",
     "changelogen": "^0.6.2",
-    "commander": "^15.0.0",
-    "semver": "^7.8.5"
+    "commander": "^15.1.0",
+    "semver": "^7.8.6"
   }
 }
