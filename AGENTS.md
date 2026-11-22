@@ -11,7 +11,9 @@ Guidance for coding agents and contributors working in this repository.
   When continuing an existing PR, stay on its branch; this rule does not require
   resetting that branch or discarding local changes.
 - Use `pnpm` as the package manager.
-- Target Node 24 for runtime and CI-related changes.
+- Keep Node 24 as the minimum supported runtime, development default, and
+  release-build runtime. Test consumer compatibility on Node 24 and 26, and keep
+  `@types/node` on major 24.
 - Keep changes focused and minimal; avoid unrelated refactors.
 - Keep docs in sync when introducing new behavior, patterns, or conventions.
 - Pull request titles should follow Conventional Commits because squash merges
@@ -35,9 +37,13 @@ Guidance for coding agents and contributors working in this repository.
 
 ```bash
 pnpm install
+pnpm lint:actions
 pnpm format:check
 pnpm typecheck
+pnpm test
 pnpm build
+pnpm pack --out /tmp/releaser.tgz
+pnpm test:package /tmp/releaser.tgz
 ```
 
 ## Quality Checklist
@@ -45,4 +51,6 @@ pnpm build
 - Run `pnpm format:check` before finishing changes that touch formatted files.
 - Run `pnpm typecheck` before finishing TypeScript changes.
 - Run `pnpm build` before finishing code changes.
+- Run `pnpm test:package <package.tgz>` against a freshly built and packed
+  package when changing consumer compatibility checks or packaging.
 - Update `README.md` or other relevant docs when behavior or usage changes.
